@@ -1,9 +1,6 @@
 package edu.bsu.cs;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -18,14 +15,9 @@ public class Wiki {
     public boolean scanData(){
         return false;
     }
-    public static void main(String[] args) throws IOException {
-        URLConnection connection = connectToWikipedia();
-        String jsonData = readJsonAsStringFrom(connection);
-        printRawJson(jsonData);
-    }
-    private static URLConnection connectToWikipedia() throws IOException {
+    private static URLConnection connectToWikipedia(String request) throws IOException {
         String encodedUrlString = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" +
-                URLEncoder.encode("Zappa", Charset.defaultCharset()) +
+                URLEncoder.encode(request, Charset.defaultCharset()) +
                 "&rvprop=timestamp|user&rvlimit=4&redirects";
         URL url = new URL(encodedUrlString);
         URLConnection connection = url.openConnection();
