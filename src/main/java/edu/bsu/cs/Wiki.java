@@ -7,7 +7,16 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 public class Wiki {
-    private static URLConnection connectToWikipedia(String request) throws IOException {
+    public static void main(String[] args) throws IOException {
+        Menu menu = new Menu();
+        String request = menu.getInput();
+        URLConnection connection = connectToWikipedia(request);
+        String jsonData = readJsonAsStringFrom(connection);
+        printRawJson(jsonData);
+    }
+
+
+    public static URLConnection connectToWikipedia(String request) throws IOException {
         String encodedUrlString = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" +
                 URLEncoder.encode(request, Charset.defaultCharset()) +
                 "&rvprop=timestamp|user&rvlimit=4&redirects";
