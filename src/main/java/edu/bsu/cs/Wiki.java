@@ -9,10 +9,12 @@ import java.nio.charset.Charset;
 public class Wiki {
     public static void main(String[] args) throws IOException {
         Menu menu = new Menu();
+        Sorting sorting = new Sorting();
         String request = menu.getInput();
         URLConnection connection = connectToWikipedia(request);
         String jsonData = readJsonAsStringFrom(connection);
-        printRawJson(jsonData);
+        Object sortedJSONData = sorting.sortedRevisions(jsonData);
+        System.out.println(sortedJSONData);
     }
 
 
