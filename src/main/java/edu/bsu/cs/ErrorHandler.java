@@ -6,8 +6,8 @@ import net.minidev.json.JSONArray;
 import java.net.URL;
 
 public class ErrorHandler {
-    public void checkEmptyRequest(String request){
-        if(request.isEmpty()){
+    public void checkEmptyRequest(String input){
+        if(input.isEmpty()){
             System.err.print("You did not provide an article.\n");
         }
     }
@@ -20,9 +20,14 @@ public class ErrorHandler {
         }
     }
     public void checkIfMissingArticle(String jsonString){
-        JSONArray checkForMissing = JsonPath.read(jsonString, "$..missing");
-        if(!checkForMissing.isEmpty()){
-            System.err.print("The article you were looking for doesn't exist.");
+        try {
+            JSONArray checkForMissing = JsonPath.read(jsonString, "$..missing");
+            if (!checkForMissing.isEmpty()) {
+                System.err.println("The article you were looking for doesn't exist.");
+            }
+        } catch (Exception e) {
+            System.err.println("Error while checking for missing articles: " + e.getMessage());
         }
     }
+
 }
