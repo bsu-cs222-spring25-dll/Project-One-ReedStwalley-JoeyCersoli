@@ -19,7 +19,7 @@ public class Sorting {
         for (Object user : users) {
             userList.add((String) user);
         }
-        for(int i = 0; i < 21; i++){
+        for(int i = 0; i < userList.size(); i++){
             sortedList.append(i+1).append(". ");
             sortedList.append(timestampList.get(i)).append(" ");
             sortedList.append(userList.get(i)).append("\n");
