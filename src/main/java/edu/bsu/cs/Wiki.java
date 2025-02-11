@@ -13,15 +13,15 @@ public class Wiki {
         String request = menu.getInput();
         URLConnection connection = connectToWikipedia(request);
         String jsonData = readJsonAsStringFrom(connection);
-        Object sortedJSONData = sorting.sortedRevisions(jsonData);
-        System.out.println(sortedJSONData);
+        //Object sortedJSONData = sorting.sortedRevisions(jsonData);
+        printRawJson(jsonData);
     }
 
 
     public static URLConnection connectToWikipedia(String request) throws IOException {
         String encodedUrlString = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" +
                 URLEncoder.encode(request, Charset.defaultCharset()) +
-                "&rvprop=timestamp|user&rvlimit=4&redirects";
+                "&rvprop=timestamp|user&rvlimit=21&redirects";
         URL url = new URL(encodedUrlString);
         URLConnection connection = url.openConnection();
         connection.setRequestProperty("User-Agent",
