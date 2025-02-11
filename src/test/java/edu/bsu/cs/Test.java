@@ -32,7 +32,19 @@ public class Test {
         String jsonData = readJsonAsStringFrom(connection);
         printRawJson(jsonData);
         Assertions.assertNotNull(jsonData);
-
+    }
+    @org.junit.jupiter.api.Test
+    public void testEmptyError(){
+        ErrorHandler errorHandler = new ErrorHandler();
+        String request = "";
+        errorHandler.checkEmptyRequest(request);
+        Assertions.assertTrue(request == "");
+    }
+    @org.junit.jupiter.api.Test
+    public void testNoConnection() {
+        ErrorHandler errorHandler = new ErrorHandler();
+        URL url = null;
+        errorHandler.checkConnection(url);
     }
     public static URLConnection connectToWikipedia(String request) throws IOException {
         String encodedUrlString = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" +
