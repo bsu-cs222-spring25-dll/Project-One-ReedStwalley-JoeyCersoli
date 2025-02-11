@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sorting {
-    public List<String> sortedRevisions(JSONArray unsortedList)  {
+    public List<String> sortRevisions(JSONArray unsortedList)  {
         List<String> sortedRevisions = new ArrayList<>();
-        ErrorHandler errorhandler = new ErrorHandler();
         JSONArray users = JsonPath.read(unsortedList, "$..revisions[*].user");
         JSONArray timestamps = JsonPath.read(unsortedList, "$..revisions[*].timestamp");
         List<String> timestampList = new ArrayList<>();
@@ -22,7 +21,8 @@ public class Sorting {
         }
         for(int i = 1; i <= unsortedList.size(); i++){
             sortedRevisions.add(i + ". ");
-            
+            sortedRevisions.add(timestampList.get(i) + " ");
+            sortedRevisions.add(userList.get(i) + "\n");
         }
         return sortedRevisions;
     }
