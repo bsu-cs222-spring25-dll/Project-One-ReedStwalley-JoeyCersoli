@@ -1,10 +1,14 @@
 package edu.bsu.cs;
 
+import com.jayway.jsonpath.JsonPath;
+import net.minidev.json.JSONArray;
+
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+
 
 public class Wiki {
     public static void main(String[] args) throws IOException {
@@ -13,8 +17,8 @@ public class Wiki {
         String request = menu.getInput();
         URLConnection connection = connectToWikipedia(request);
         String jsonData = readJsonAsStringFrom(connection);
-        //Object sortedJSONData = sorting.sortedRevisions(jsonData);
-        printRawJson(jsonData);
+        JSONArray jsonArray = extractRevisions(jsonData);
+
     }
 
 
@@ -34,7 +38,12 @@ public class Wiki {
         return new String(connection.getInputStream().readAllBytes(), Charset.defaultCharset());
     }
 
-    public static void printRawJson(String jsonData) {
-        System.out.println(jsonData);
+    public static JSONArray extractRevisions(String jsonData) {
+        if (jsonData.contains("redirects")) {
+            String redirectedArticle = JsonPath.read(jsonData, "$.query.redirects[0].to").toString();
+            System.out.println("Redirected to " + redirectedArticle);
+        }
+        return JsonPath.read(jsonData, "$..revisions[*]");
     }
+
 }
