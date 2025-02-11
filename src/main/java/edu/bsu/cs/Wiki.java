@@ -20,7 +20,7 @@ public class Wiki {
         URLConnection connection = connectToWikipedia(request);
         String jsonData = readJsonAsStringFrom(connection);
         JSONArray jsonArray = extractRevisions(jsonData);
-
+        System.out.println(sorting.sortRevisions(jsonArray));
     }
 
 
