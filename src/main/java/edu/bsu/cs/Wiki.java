@@ -19,7 +19,10 @@ public class Wiki {
         errorHandler.checkEmptyRequest(request);
         URLConnection connection = connectToWikipedia(request);
         String jsonData = readJsonAsStringFrom(connection);
-        System.out.println(sorting.sortRevisions(jsonData));
+        boolean noError = errorHandler.checkIfMissingArticle(jsonData);
+        if(noError){
+            System.out.println(sorting.sortRevisions(jsonData));
+        }
     }
 
 

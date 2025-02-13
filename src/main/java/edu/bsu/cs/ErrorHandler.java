@@ -19,15 +19,18 @@ public class ErrorHandler {
             System.err.print("There was a network error; could not connect to the article");
         }
     }
-    public void checkIfMissingArticle(String jsonString){
+    public boolean checkIfMissingArticle(String jsonString){
         try {
             JSONArray checkForMissing = JsonPath.read(jsonString, "$..missing");
             if (!checkForMissing.isEmpty()) {
                 System.err.println("The article you were looking for doesn't exist.");
+            } else{
+                return true;
             }
         } catch (Exception e) {
             System.err.println("Error while checking for missing articles: " + e.getMessage());
         }
+        return false;
     }
 
 }

@@ -24,7 +24,6 @@ public class Sorting {
             sortedList.append(timestampList.get(i)).append(" ");
             sortedList.append(userList.get(i)).append("\n");
         }
-
         return sortedList;
     }
 }
