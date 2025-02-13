@@ -19,7 +19,8 @@ public class Wiki {
         errorHandler.checkEmptyRequest(request);
         URLConnection connection = connectToWikipedia(request);
         String jsonData = readJsonAsStringFrom(connection);
-        System.out.println(sorting.sortRevisions(jsonData));
+        JSONArray jsonArray = extractRevisions(jsonData);
+        System.out.println(sorting.sortRevisions(jsonArray));
     }
 
 
