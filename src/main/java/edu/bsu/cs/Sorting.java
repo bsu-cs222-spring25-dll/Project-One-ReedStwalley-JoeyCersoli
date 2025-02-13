@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sorting {
-    public StringBuilder sortRevisions(JSONArray unsortedList)  {
+    public StringBuilder sortRevisions(String stringData)  {
         StringBuilder sortedList = new StringBuilder();
-        JSONArray users = JsonPath.read(unsortedList, "$..revisions[*].user");
-        JSONArray timestamps = JsonPath.read(unsortedList, "$..revisions[*].timestamp");
+        JSONArray users =   JsonPath.read(stringData, "$..revisions[*].user");
+        JSONArray timestamps =   JsonPath.read(stringData, "$..revisions[*].timestamp");
         List<String> timestampList = new ArrayList<>();
         List<String> userList = new ArrayList<>();
         for (Object timestamp : timestamps) {
@@ -24,6 +24,7 @@ public class Sorting {
             sortedList.append(timestampList.get(i)).append(" ");
             sortedList.append(userList.get(i)).append("\n");
         }
+
         return sortedList;
     }
 }
