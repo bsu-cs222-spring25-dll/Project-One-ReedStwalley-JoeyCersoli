@@ -47,11 +47,19 @@ public class Test {
         ErrorHandler errorHandler = new ErrorHandler();
         URL url = null;
         errorHandler.checkConnection(url);
+        Assertions.assertNull(url);
     }
     @org.junit.jupiter.api.Test
     public void testMissingArticleError(){
         ErrorHandler errorHandler = new ErrorHandler();
         String request = "SJDFJIVKnkelispal";
         errorHandler.checkIfMissingArticle(request);
+    }
+    @org.junit.jupiter.api.Test
+    public void testSorting() throws IOException {
+        Sorting sorting = new Sorting();
+        String request = "Soup";
+        connectToWikipedia(request);
+        sorting.sortRevisions(String.valueOf(connectToWikipedia(request)));
     }
 }

@@ -32,6 +32,7 @@ public class Wiki {
         String encodedUrlString = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" +
                 URLEncoder.encode(request, Charset.defaultCharset()) +
                 "&rvprop=timestamp|user&rvlimit=21&redirects";
+        //noinspection deprecation
         URL url = new URL(encodedUrlString);
         errorHandler.checkConnection(url);
         URLConnection connection = url.openConnection();
