@@ -53,11 +53,10 @@ public class WikiGUI {
 
     public void searcherWIKIList() throws IOException {
         String input = inputField.getText();
-        Wiki wiki = new Wiki();
         ErrorHandler errorHandler = new ErrorHandler();
         Sorting sorting = new Sorting();
-        URLConnection connection = wiki.connectToWikipedia(input);
-        String jsonData = wiki.readJsonAsStringFrom(connection);
+        URLConnection connection = Wiki.connectToWikipedia(input);
+        String jsonData = Wiki.readJsonAsStringFrom(connection);
         boolean noError = errorHandler.checkIfMissingArticle(jsonData);
         if(noError){
             outputField.setText(sorting.sortRevisions(jsonData).toString());
