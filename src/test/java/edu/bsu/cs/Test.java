@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Assertions;
 
-import javax.swing.*;
+
+import static edu.bsu.cs.Wiki.connectToWikipedia;
+import static edu.bsu.cs.Wiki.readJsonAsStringFrom;
 
 public class Test {
 
@@ -28,40 +29,29 @@ public class Test {
     }
     @org.junit.jupiter.api.Test
     public void testSoup() throws IOException{
+        Sorting sorting = new Sorting();
         URLConnection connection = connectToWikipedia("Soup");
         String jsonData = readJsonAsStringFrom(connection);
-        printRawJson(jsonData);
+        sorting.sortRevisions(jsonData);
         Assertions.assertNotNull(jsonData);
     }
     @org.junit.jupiter.api.Test
-    public void testEmptyError(){
+    public void testNoInputError(){
         ErrorHandler errorHandler = new ErrorHandler();
         String request = "";
         errorHandler.checkEmptyRequest(request);
-        Assertions.assertTrue(request == "");
+        Assertions.assertSame("", request);
     }
     @org.junit.jupiter.api.Test
-    public void testNoConnection() {
+    public void testNoConnectionError() {
         ErrorHandler errorHandler = new ErrorHandler();
         URL url = null;
         errorHandler.checkConnection(url);
     }
-    public static URLConnection connectToWikipedia(String request) throws IOException {
-        String encodedUrlString = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" +
-                URLEncoder.encode(request, Charset.defaultCharset()) +
-                "&rvprop=timestamp|user&rvlimit=4&redirects";
-        URL url = new URL(encodedUrlString);
-        URLConnection connection = url.openConnection();
-        connection.setRequestProperty("User-Agent",
-                "CS222FirstProject/0.1 (reed.stwalley@bsu.edu)");
-        connection.connect();
-        return connection;
-    }
-    public static String readJsonAsStringFrom(URLConnection connection) throws IOException {
-        return new String(connection.getInputStream().readAllBytes(), Charset.defaultCharset());
-    }
-
-    public static void printRawJson(String jsonData) {
-        System.out.println(jsonData);
+    @org.junit.jupiter.api.Test
+    public void testMissingArticleError(){
+        ErrorHandler errorHandler = new ErrorHandler();
+        String request = "SJDFJIVKnkelispal";
+        errorHandler.checkIfMissingArticle(request);
     }
 }
