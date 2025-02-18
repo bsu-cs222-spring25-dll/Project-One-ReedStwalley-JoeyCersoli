@@ -1,21 +1,17 @@
 package edu.bsu.cs;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.URLConnection;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
-public class WikiGUI {
+import java.io.IOException;
+import java.net.URLConnection;
+public class UI extends Application {
     public static void main(String[] args) {
         launch(args);
     }
@@ -23,7 +19,6 @@ public class WikiGUI {
     private final TextField inputField = new TextField();
     private final TextField outputField = new TextField();
 
-    @Override
     public void start(Stage primaryStage) {
         outputField.setEditable(false);
         configure(primaryStage);
@@ -48,7 +43,15 @@ public class WikiGUI {
     }
 
     private void configureSearchButton() {
-        searchButton.setOnAction(event -> searcherWIKIList());
+        searchButton.setOnAction(event -> {
+            try {
+                searcherWIKIList();
+                ErrorHandler errorHandler = new ErrorHandler();
+                errorHandler.checkEmptyRequest(inputField.getText());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public void searcherWIKIList() throws IOException {
