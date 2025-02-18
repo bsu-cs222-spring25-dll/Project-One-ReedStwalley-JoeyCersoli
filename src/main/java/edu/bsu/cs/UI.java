@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URLConnection;
 public class UI extends Application {
     public static void main(String[] args) {
         launch(args);
@@ -58,8 +57,7 @@ public class UI extends Application {
         String input = inputField.getText();
         ErrorHandler errorHandler = new ErrorHandler();
         Sorting sorting = new Sorting();
-        URLConnection connection = Wiki.connectToWikipedia(input);
-        String jsonData = Wiki.readJsonAsStringFrom(connection);
+        String jsonData = Wiki.readJsonAsStringFrom(Wiki.connectToWikipedia(input));
         boolean noError = errorHandler.checkIfMissingArticle(jsonData);
         if(noError){
             outputField.setText(sorting.sortRevisions(jsonData).toString());

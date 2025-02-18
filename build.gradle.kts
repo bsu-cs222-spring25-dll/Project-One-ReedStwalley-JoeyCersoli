@@ -4,7 +4,7 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
-group = "org.example"
+group = "edu.bsu.cs"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -28,6 +28,6 @@ javafx {
     modules("javafx.controls", "javafx.fxml")
 }
 application {
-    mainClass.set("bsu.edu.cs222.UI")
+    mainClass.set("edu.bsu.cs.UI")
 }
 

@@ -12,6 +12,7 @@ import java.nio.charset.Charset;
 
 public class Wiki {
     public static void main(String[] args) throws IOException {
+        UI ui = new UI();
         Menu menu = new Menu();
         ErrorHandler errorHandler = new ErrorHandler();
         Sorting sorting = new Sorting();
